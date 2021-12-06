@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 4.2</title>
+    <style>
+        table {
+            border: 2px solid #333;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        th,
+        td {
+            padding: 2px 5px;
+            border: 1px solid #888;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #EEE;
+        }
+
+        tbody tr:hover td {
+            background-color: rgb(112, 112, 168);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>n</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Ville</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>NYCRAYON</td>
+                <td>Nicole</td>
+                <td>Poitiers</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>PATAMEUL</td>
+                <td>Alphonse</td>
+                <td>Tours</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>HYENNE</td>
+                <td>Cesar</td>
+                <td>Orleans</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>NEYMAR</td>
+                <td>Jean</td>
+                <td>Paris</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>TERRIEUR</td>
+                <td>Alex</td>
+                <td>Lyon</td>
+            </tr>
+        </tbody>
+    </table>
+    <footer>
+        <script>
+            (function () {
+                let tr = document.querySelector('thead tr');
+                let th = document.createElement('th');
+                tr.appendChild(th);
+                document.querySelectorAll('tbody tr').forEach(function (tr) {
+                    let td = document.createElement('th');
+                    tr.appendChild(td);
+                    let a = document.createElement('a');
+                    a.href = '#';
+                    let id = tr.querySelector('td').textContent;
+                    a.title = "Supprimer le contact N°" + id;
+                    td.appendChild(a);
+                    let img = document.createElement('img');
+                    img.src = 'img/delete.png';
+                    a.appendChild(img);
+                    a.addEventListener('click', function () {
+                        let tr = this.closest('tr');
+                        tr.parentNode.removeChild(tr);
+                    });
+                })
+            })();
+        </script>
+    </footer>
+</body>
+
+</html>
