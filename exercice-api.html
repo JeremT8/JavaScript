@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API File</title>
+    <style>
+        #images {
+            display: none;
+        }
+
+        #depot {
+            height: 130px;
+            border: 1px solid grey;
+            padding: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="file" id="images" />
+    <div id="depot"></div>
+    <footer>
+        <script>
+            let depot = document.querySelector('#depot');
+            depot.addEventListener('dragenter', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            depot.addEventListener('dragover', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            depot.addEventListener('drop', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                let dt = e.dataTransfer;
+                let files = dt.files;
+                for (let i = 0; i < files.length; i++) {
+                    let f = files[i];
+                    let oUrl = URL.createObjectURL(f);
+                    let img = document.createElement('img');
+                    img.src = oUrl;
+                    img.addEventListener('load', function () {
+                        URL.revokeObjectURL(oUrl);
+                    })
+                    depot.appendChild(img);
+                }
+            });
+        </script>
+    </footer>
+</body>
+
+</html>

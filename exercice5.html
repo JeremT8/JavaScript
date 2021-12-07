@@ -8,65 +8,151 @@
     <title>Document</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <style>
-        # {
-            width: 100%;
-            margin: 5px auto;
+        form {
+            width: 800px;
+            margin: 25px auto;
+        }
+
+        #eye {
+            border: 1px solid silver;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            font-style: italic;
         }
     </style>
 </head>
 
 <body>
-    <form>
+    <form novalidate>
         <div class="row mb3">
             <label for="nom" class="col-sm-2 col-form-label">Nom</label>
             <div class="col-sm-10">
-                <input type="nom" class="form-control" id="nom" placeholder="Nom">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="nom" 
+                    placeholder="Nom de naissance"
+                    name ="nom"
+                    required
+                    >
             </div>
         </div>
         <div class="row mb-3">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="email" placeholder="Email Address">
+                <input 
+                    type="email" 
+                    class="form-control" 
+                    id="email" 
+                    placeholder="Email Address" 
+                    name = "email"
+                    required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre Pair</label>
+            <div class="col-sm-10">
+                <input 
+                    type="number" 
+                    min="0" 
+                    max="100" 
+                    step="2" 
+                    class="form-control" 
+                    id="nombre" 
+                    name="nombre">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="naissance" class="col-sm-2 col-form-label">Date de naissance</label>
+            <div class="col-sm-10">
+                <input 
+                    type="date" 
+                    class="form-control" 
+                    id="naissance" 
+                    name="naissance">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="cv" class="col-sm-2 col-form-label">Curriculum Vitae</label>
+            <div class="col-sm-10">
+                <input 
+                    type="file" 
+                    class="form-control" 
+                    id="cv" 
+                    name="cv"
+                    required>
             </div>
         </div>
         <div class="row mb-3">
             <label for="password" class="col-sm-2 col-form-label">Mot de Passe</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="Password" pattern="(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}">
-            </div>
-        </div>
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                            checked>
-                        <label class="form-check-label" for="gridRadios1">
-                            First radio
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                            Second radio
-                        </label>
-                    </div>
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3"
-                            disabled>
-                        <label class="form-check-label" for="gridRadios3">
-                            Third disabled radio
-                        </label>
-                    </div>
+                <div class="input-group mb-3">
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        placeholder="Mot de passe"
+                        pattern="(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*].*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z]).{8,}"
+                        title="Le mot de passe doit être fort. " 
+                        name="password" 
+                        required>
+                    <img id="eye" src="/img/3994406_eye_on_show_view_visible_icon.png" width="35">
                 </div>
             </div>
-        </fieldset>
+        </div>
+        <fieldset class="row mb-3">
+            <legend class="col-form-label col-sm-2 pt-0">Sport</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="foot" 
+                    id="foot" 
+                    value="foot" 
+                    checked>
+                  <label class="form-check-label" for="foot">
+                    Foot
+                  </label>
+                </div>
+  
+                <div class="form-check">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="rugby" 
+                    id="rugby" 
+                    value="rugby">
+                  <label class="form-check-label" for="rugby">
+                    Rugby
+                  </label>
+                </div>
+  
+                <div class="form-check">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="basket" 
+                    id="basket" 
+                    value="basket" 
+                    >
+                  <label class="form-check-label" for="basket">
+                    Basket
+                  </label>
+                </div>
+            </div>
+          </fieldset>
         <div class="form-group row">
             <div class="col-sm-2">Checkbox</div>
             <div class="col-sm-10">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        id="gridCheck1">
                     <label class="form-check-label" for="gridCheck1">
                         Example checkbox
                     </label>
@@ -75,12 +161,76 @@
         </div>
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button 
+                    type="submit" 
+                    class="btn btn-primary">
+                        Validez
+                </button>
+                <ul class="error">
+
+                </ul>
             </div>
         </div>
     </form>
     <footer>
         <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+            document.querySelector('#eye').addEventListener('mousedown', function () {
+                this.src = 'img/3994371_eye_hidden_hide_invisible_private_icon.png';
+                this.parentNode.querySelector('input').type = 'text';
+
+            });
+            document.querySelector('#eye').addEventListener('mouseup', function () {
+                this.src = 'img/3994406_eye_on_show_view_visible_icon.png';
+                this.parentNode.querySelector('input').type = 'password';
+            });
+            document.querySelector('form').addEventListener('submit', function (e) {
+                if (!this.checkValidity()) {
+                    let ul = document.querySelector('ul.error');
+                    ul.innerHTML = '';
+                    let nom = document.querySelector('#nom');
+                    nom.setCustomValidity('');
+                    if(!nom.checkValidity()) {
+                        nom.setCustomValidity(' Le nom doit être renseigné. ');
+                        let li = document.createElement('li');
+                        ul.appendChild(li);
+                        li.textContent = nom.validationMessage;
+                }
+
+                let email = document.querySelector('#email');
+                email.setCustomValidity('');
+                if (!email.checkValidity()) {
+                    if (email.validity.valueMissing) 
+                        email.setCustomValidity("L'email doit être renseigné. ");
+                    else 
+                        email.setCustomValidity("L'email n'est pas valide. ")
+                    
+                    let li = document.createElement('li');
+                    ul.appendChild(li);
+                    li.textContent = email.validationMessage;
+                }
+
+                let cv = document.querySelector('#cv');
+                cv.setCustomValidity('');
+                if (!cv.checkValidity()) {
+                        cv.setCustomValidity("Le CV doit être fourni. ");                    
+                } else {
+                    let f = cv.files[0]
+                    if (f.size > 1024*1024) {
+                        cv.setCustomValidity("Votre CV est trop volumineux ");
+                    } else if(f.type.indexOf('pdf') === -1) {
+                        cv.setCustomValidity("Votre CV n'est pas un .pdf")
+                    } 
+                }
+                if (!cv.checkValidity()) {
+                        let li = document.createElement('li');
+                        ul.appendChild(li);
+                        li.textContent = cv.validationMessage;
+                    }
+                e.preventDefault();
+            }
+        })
+        </script>
     </footer>
 </body>
 
