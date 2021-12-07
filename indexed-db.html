@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'API indexDB</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <style>
+        label{
+            display: inline-block;
+            width: 100px;
+        }
+        form > div{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div>
+            <label for="">Nom</label>
+            <input type="text" id="nom">
+        </div>
+        <div>
+            <label for="">Prénom</label>
+            <input type="text" id="prenom">
+        </div>
+        <div>
+            <label for="">Ville</label>
+            <input type="text" id="ville">
+        </div>
+        <div>
+            <label></label>
+            <input type="button" value="Ajouter" id="add">
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Ville</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="js/database.js"></script>
+    <script>
+        myDB.indexedDB.open('m2i', 'contacts');
+
+        document.querySelector('#add').addEventListener('click', function(){
+            let nom = document.querySelector('#nom').value;
+            let prenom = document.querySelector('#prenom').value;
+            let ville = document.querySelector('#ville').value;
+            let data = {
+                'nom': nom,
+                'prenom': prenom,
+                'ville': ville
+            }
+            document.querySelector('tbody').innerHTML = '';
+            myDB.indexedDB.create('contacts', data);
+        })
+
+        myDB.indexedDB.callback = function(data){
+            let tbody = document.querySelector('tbody');
+            var tr = document.createElement('tr');
+            ['id', 'nom', 'prenom', 'ville'].forEach(function(property){
+                var td = document.createElement('td');
+                td.textContent = data[property];
+                if (property !== 'id') td.contentEditable = true;
+                tr.appendChild(td);
+            });
+            let td = document.createElement('td');
+            td.classList.add('action');
+            let a = document.createElement('a');
+            a.href = '#';
+            let img = document.createElement('img');
+            img.src = 'img/delete.png';
+            img.addEventListener('click', function() {
+                let tr = img.closest('tr');
+                let td = tr.querySelectorAll('td')[0];
+                let id = parseInt(td.textContent);
+                myDB.indexedDB.delete('contacts', id);
+                tr.parentNode.removeChild(tr);
+            });
+            a.title = "Supprimer";
+            a.appendChild(img);
+            td.appendChild(a);
+
+            /** Update **/
+            a = document.createElement('a');
+            a.href = '#';
+            img = document.createElement('img');
+            img.src = 'img/edit.png';
+            img.addEventListener('click', function() {
+                let tr = img.closest('tr');
+                let colTd = tr.querySelectorAll('td');
+                let id = parseInt(colTd[0].textContent);
+                let nom = colTd[1].textContent;
+                let prenom = colTd[2].textContent;
+                let ville = colTd[3].textContent;
+                let data = {
+                    'id': id,
+                    'nom': nom,
+                    'prenom': prenom,
+                    'ville': ville
+                }
+                myDB.indexedDB.update('contacts', data);
+            });
+            a.title = "Editer"
+            a.appendChild(img);
+            td.appendChild(a);
+            
+
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+        }
+
+
+
+    </script>
+</body>
+</html>

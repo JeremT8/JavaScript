@@ -34,12 +34,12 @@
                 e.preventDefault();
             });
             depot.addEventListener('drop', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
+                cancelPropagation(e)
                 let dt = e.dataTransfer;
-                let files = dt.files;
-                for (let i = 0; i < files.length; i++) {
-                    let f = files[i];
+                let files = e.dataTransfer.files;
+                Array.from(files).forEach(function (f) {
+                // for (let i = 0; i < files.length; i++) {
+                //   let f = files[i];
                     let oUrl = URL.createObjectURL(f);
                     let img = document.createElement('img');
                     img.src = oUrl;
@@ -47,8 +47,13 @@
                         URL.revokeObjectURL(oUrl);
                     })
                     depot.appendChild(img);
-                }
+                })
             });
+
+            function cancelPropagation(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
         </script>
     </footer>
 </body>
