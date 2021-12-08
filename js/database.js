@@ -48,7 +48,7 @@ myDB.indexedDB.create = function(tablename, data) {
     let store = transaction.objectStore(tablename);
     let request = store.add(data);
     request.onsuccess =  function(e) {
-        myDB.indexedDB.read(tablename);
+       //  myDB.indexedDB.read(tablename);
     }
     request.onerror = myDB.indexedDB.onerror;
 }

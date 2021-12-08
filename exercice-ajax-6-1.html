@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AJAX et JSON</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+
     <style>
         * {
             text-align: center;
@@ -74,14 +75,26 @@
                     td.textContent = element.ville;
                     tr.appendChild(td);
                     tbody.appendChild(tr)
-
                 });
+                exercice71();
             })
             .catch((error) => {
                 console.log(error);
             })
+
+            function exercice71() {
+                $('table tbody tr:eq(0) td:eq(2)').next().css({'background-color': 'red'});
+                $('table tbody tr:eq(1) td:eq(2)').nextAll().css({'background-color': 'blue', 'color' : 'white'});
+                $('table tbody tr:eq(2) td:eq(2)').nextAll().addBack().css({'background-color': 'yellow'});
+                $('table tbody tr:eq(3) td:eq(2)').prev().css({'background-color': 'lime'});
+                $('table tbody tr:eq(4) td:eq(2)').prevAll().css({'background-color': 'brown', 'color' : 'yellow'});
+                $('table tbody tr:eq(5) td:eq(2)').prevAll().addBack().css({'background-color': 'magenta', 'color' : 'cyan'});
+                $('table tbody tr:eq(6) td:eq(2)').parent().children().css({'background-color': 'cyan', 'color' : 'black'})
+                $('table tbody tr td:contains(Tours)').css({'font-weight': 'bold', 'color' : 'black', 'text-decoration': 'underline'})
+            }
     </script>
     <script src="/node_modules/bootstrap/dist/css/bootstrap.min.css"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

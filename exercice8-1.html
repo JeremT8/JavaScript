@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery - Les Evenements</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 15%;
+        }
+        #calque {
+            width: 200px;
+            height: 200px;
+            /* display: none; */
+            border: 1px solid silver;
+            background-color: #EEE;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="animer">Animer</button>
+    <button id="reinitialiser">Réinitialiser</button>
+    <div id="calque">Hello World !</div>
+    <footer>
+        <script src="/js/jquery-3.6.0.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+
+            /**
+             * 
+             * Créez une page web qui contient deux boutons (vous pouvez vous servir des éléments de l'atelier précédent) :
+                -    Le premier bouton permet l'animation d'un calque d'une taille de 200 x 200
+                -    Pendant 5 secondes, le calque s'élargit jusqu'à 90% de la taille de la page
+                -    Le texte devient aussi plus grand (12pt d'origine à 36pt)
+                -    Après ces 5 secondes, le calque s'agrandit par le bas (600px)
+                -    Le deuxième bouton permet au calque de retrouver son apparence initiale
+             * 
+             */
+            $('#animer').click(function() {
+                $('#calque').animate(
+                    {
+                        // les propriétés.
+                        width: '90%',
+                        fontSize: '36pt'
+                    },
+                    {
+                        // les informations sur l'animation.
+                        duration: 5000
+                    }
+                ).animate(
+                {
+                    height: '600px'
+                },
+                {
+                    duration: 5000,
+                    queue: false
+                }
+                )
+            });
+
+            $('#reinitialiser').click(function() {
+                $('#calque').css({
+                    width: '',
+                    fontSize:'',
+                    height:''
+                }
+                );
+            })
+        </script>
+    </footer>
+</body>
+</html>

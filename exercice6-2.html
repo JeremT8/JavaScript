@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>les API IndexedDB et Fetch</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <style>
+        form {
+            width: 800px;
+            margin: 20px auto;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        form>div {
+            margin: 5px;
+        }
+
+        table {
+            width: 800px !important;
+            margin: 20px auto;
+        }
+        #loadData {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        <button id="loadData" class="btn btn-success">Charger les données à partir du fichier JSON</button>
+        <button id="loadData" class="btn btn-primary">Exporter les données vers un fichier JSON</button>
+
+    </p>
+    <form>
+        <div>
+            <label>Nom</label>
+            <input type="text" id="nom">
+        </div>
+        <div>
+            <label>Prénom</label>
+            <input type="text" id="prenom">
+        </div>
+        <div>
+            <label>Code Postal</label>
+            <input type="text" id="codepostal">
+        </div>
+        <div>
+            <label>Ville</label>
+            <input type="text" id="ville">
+        </div>
+        <div>
+            <label></label>
+            <input type="button" class="btn btn-primary" value="Ajouter" id="add">
+        </div>
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Code Postal</th>
+                <th>Ville</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script src="js/bootstrap.min.js"> </script>
+    <script src="js/database.js"> </script>
+    <script>
+        myDB.indexedDB.open('m2i', 'contacts');
+
+        document.querySelector('#loadData').addEventListener('click', function () {
+            fetch('js/contacts.json')
+                .then((response) => {
+                    if (response.ok) return response.json();
+                    return Promise.reject(new Error(response.status + ': '
+                        + response.statusText));
+                })
+                .then((json) => {
+                    document.querySelector('tbody').innerHTML = '';
+                    json.data.forEach(function (row) {
+                        let item = {
+                            'nom': row.nom.toUpperCase(),
+                            'prenom': row.prenom,
+                            'codepostal': row.codepostal,
+                            'ville': row.ville
+                        };
+                        myDB.indexedDB.create('contacts', item);
+                    });
+                    myDB.indexedDB.read('contacts');
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        });
+
+        document.querySelector('#add').addEventListener('click', function () {
+            let nom = document.querySelector('#nom').value;
+            let prenom = document.querySelector('#prenom').value;
+            let codepostal = document.querySelector('#codepostal').value;
+            let ville = document.querySelector('#ville').value;
+            let data = {
+                'nom': nom.toUpperCase(),
+                'prenom': prenom,
+                'codepostal': codepostal,
+                'ville': ville
+            };
+            document.querySelector('tbody').innerHTML = '';
+            document.querySelector('#nom').value = '';
+            document.querySelector('#prenom').value = '';
+            document.querySelector('#codepostal').value = '';
+            document.querySelector('#ville').value = '';
+            myDB.indexedDB.create('contacts', data);
+            myDB.indexedDB.create('contacts');
+
+        });
+
+        myDB.indexedDB.callback = function (data) {
+            let tbody = document.querySelector('tbody');
+            var tr = document.createElement('tr');
+            ['id', 'nom', 'prenom', 'codepostal', 'ville'].forEach(function (property) {
+                let td = document.createElement('td');
+                td.textContent = data[property];
+                if (property !== 'id') td.contentEditable = true;
+                tr.appendChild(td);
+            });
+            let td = document.createElement('td');
+            td.classList.add('action');
+            let a = document.createElement('a');
+            a.href = '#';
+            let img = document.createElement('img');
+            img.src = 'img/delete.png';
+            img.addEventListener('click', function () {
+                let tr = img.closest('tr');
+                let td = tr.querySelectorAll('td')[0];
+                let id = parseInt(td.textContent);
+                myDB.indexedDB.delete('contacts', id);
+                tr.parentNode.removeChild(tr);
+            });
+            a.title = "Supprimer";
+            a.appendChild(img);
+            td.appendChild(a);
+
+            /** Update **/
+            a = document.createElement('a');
+            a.href = '#';
+            img = document.createElement('img');
+            img.src = 'img/edit.png';
+            img.addEventListener('click', function () {
+                let tr = img.closest('tr');
+                let colTD = tr.querySelectorAll('td');
+                let id = parseInt(colTD[0].textContent);
+                let nom = colTD[1].textContent;
+                let prenom = colTD[2].textContent;
+                let codepostal = colTD[3].textContent;
+                let ville = colTD[4].textContent;
+                let data = {
+                    'id': id,
+                    'nom': nom.toUpperCase(),
+                    'prenom': prenom,
+                    'codepostal': codepostal,
+                    'ville': ville
+                };
+                myDB.indexedDB.update('contacts', data);
+            });
+            a.title = "Editer";
+            a.appendChild(img);
+            td.appendChild(a);
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+        }
+
+    </script>
+</body>
+
+</html>
