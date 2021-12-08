@@ -15,46 +15,50 @@
         form > div{
             margin: 5px;
         }
+        table {
+            width: 800px !important;
+            margin: 20px auto;
+        }
     </style>
 </head>
 <body>
     <form>
         <div>
-            <label for="">Nom</label>
+            <label>Nom</label>
             <input type="text" id="nom">
         </div>
         <div>
-            <label for="">Prénom</label>
+            <label>Prénom</label>
             <input type="text" id="prenom">
         </div>
         <div>
-            <label for="">Ville</label>
+            <label>Ville</label>
             <input type="text" id="ville">
         </div>
         <div>
             <label></label>
-            <input type="button" value="Ajouter" id="add">
+            <input type="button" class="btn btn-primary" value="Ajouter" id="add">
         </div>
     </form>
-
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>id</th>
+                <th>Id</th>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Ville</th>
                 <th></th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        </tbody>
     </table>
-
-    <script src="js/database.js"></script>
+    <script src="js/bootstrap.min.js"> </script>
+    <script src="js/database.js"> </script>
     <script>
         myDB.indexedDB.open('m2i', 'contacts');
 
-        document.querySelector('#add').addEventListener('click', function(){
+        document.querySelector('#add').addEventListener('click', function () {
             let nom = document.querySelector('#nom').value;
             let prenom = document.querySelector('#prenom').value;
             let ville = document.querySelector('#ville').value;
@@ -62,16 +66,19 @@
                 'nom': nom,
                 'prenom': prenom,
                 'ville': ville
-            }
+            };
             document.querySelector('tbody').innerHTML = '';
+            document.querySelector('#nom').value = '';
+            document.querySelector('#prenom').value = '';
+            document.querySelector('#ville').value = '';
             myDB.indexedDB.create('contacts', data);
-        })
+        });
 
-        myDB.indexedDB.callback = function(data){
+        myDB.indexedDB.callback = function (data) {
             let tbody = document.querySelector('tbody');
             var tr = document.createElement('tr');
-            ['id', 'nom', 'prenom', 'ville'].forEach(function(property){
-                var td = document.createElement('td');
+            ['id', 'nom', 'prenom', 'ville'].forEach(function (property) {
+                let td = document.createElement('td');
                 td.textContent = data[property];
                 if (property !== 'id') td.contentEditable = true;
                 tr.appendChild(td);
@@ -82,7 +89,7 @@
             a.href = '#';
             let img = document.createElement('img');
             img.src = 'img/delete.png';
-            img.addEventListener('click', function() {
+            img.addEventListener('click', function () {
                 let tr = img.closest('tr');
                 let td = tr.querySelectorAll('td')[0];
                 let id = parseInt(td.textContent);
@@ -98,32 +105,28 @@
             a.href = '#';
             img = document.createElement('img');
             img.src = 'img/edit.png';
-            img.addEventListener('click', function() {
+            img.addEventListener('click', function () {
                 let tr = img.closest('tr');
-                let colTd = tr.querySelectorAll('td');
-                let id = parseInt(colTd[0].textContent);
-                let nom = colTd[1].textContent;
-                let prenom = colTd[2].textContent;
-                let ville = colTd[3].textContent;
+                let colTD = tr.querySelectorAll('td');
+                let id = parseInt(colTD[0].textContent);
+                let nom = colTD[1].textContent;
+                let prenom = colTD[2].textContent;
+                let ville = colTD[3].textContent;
                 let data = {
                     'id': id,
                     'nom': nom,
                     'prenom': prenom,
                     'ville': ville
-                }
+                };
                 myDB.indexedDB.update('contacts', data);
             });
-            a.title = "Editer"
+            a.title = "Editer";
             a.appendChild(img);
             td.appendChild(a);
-            
-
 
             tr.appendChild(td);
             tbody.appendChild(tr);
         }
-
-
 
     </script>
 </body>

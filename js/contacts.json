@@ -1,0 +1,103 @@
+{
+    "title": "Liste des contacts",
+    "data": [
+        {
+            "identifiant": "1",
+            "nom": "Hienne",
+            "prenom": "César",
+            "codepostal": "37000",
+            "ville": "Tours"
+        },
+        {
+            "identifiant": "2",
+            "nom": "Nicraillon",
+            "prenom": "Nicole",
+            "codepostal": "72000",
+            "ville": "Le Mans"
+        },
+        {
+            "identifiant": "3",
+            "nom": "Clerc",
+            "prenom": "Charles",
+            "codepostal": "49000",
+            "ville": "Angers"
+        },
+        {
+            "identifiant": "4",
+            "nom": "Terrieur",
+            "prenom": "Alain",
+            "codepostal": "86000",
+            "ville": "Poitiers"
+        },
+        {
+            "identifiant": "5",
+            "nom": "Terrieur",
+            "prenom": "Alex",
+            "codepostal": "45000",
+            "ville": "Orléans"
+        },
+        {
+            "identifiant": "6",
+            "nom": "Patameule",
+            "prenom": "Alphonse",
+            "codepostal": "41000",
+            "ville": "Blois"
+        },
+        {
+            "identifiant": "7",
+            "nom": "Manvussa",
+            "prenom": "Gérard",
+            "codepostal": "36000",
+            "ville": "Chateauroux"
+        },
+        {
+            "identifiant": "8",
+            "nom": "Hienne",
+            "prenom": "César",
+            "codepostal": "37000",
+            "ville": "Tours"
+        },
+        {
+            "identifiant": "9",
+            "nom": "Nicraillon",
+            "prenom": "Nicole",
+            "codepostal": "72000",
+            "ville": "Le Mans"
+        },
+        {
+            "identifiant": "10",
+            "nom": "Clerc",
+            "prenom": "Charles",
+            "codepostal": "49000",
+            "ville": "Angers"
+        },
+        {
+            "identifiant": "11",
+            "nom": "Terrieur",
+            "prenom": "Alain",
+            "codepostal": "86000",
+            "ville": "Poitiers"
+        },
+        {
+            "identifiant": "12",
+            "nom": "Terrieur",
+            "prenom": "Alex",
+            "codepostal": "45000",
+            "ville": "Orléans"
+        },
+        {
+            "identifiant": "13",
+            "nom": "Patameule",
+            "prenom": "Alphonse",
+            "codepostal": "41000",
+            "ville": "Blois"
+        },
+        {
+            "identifiant": "14",
+            "nom": "Manvussa",
+            "prenom": "Gérard",
+            "codepostal": "36000",
+            "ville": "Chateauroux"
+        }
+    ]
+}
