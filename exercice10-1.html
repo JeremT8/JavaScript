@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le modèle DOM</title>
+    <style>
+        div {
+            height: 130px;
+            padding: 1px;
+            border: 1px solid grey;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="source"></div>
+    <div id="target"></div>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script>
+        // fonction immédiate
+        (function() {
+            for (let i=1; i < 9; i++){
+                $('<img>').appendTo('#source').attr({
+                    'src': "img/portrait ("+i+").png",
+                    'title': "Portrait ("+i+")" 
+                }).click(function(){
+                    if ($(this).parent().attr('id') === 'source')  {
+                        $('#target').append(this);
+                    } else {
+                        $('#source').append(this);
+                    }
+                })  
+            }
+        })();
+
+
+    </script>
+</body>
+</html>

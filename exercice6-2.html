@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>les API IndexedDB et Fetch</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <title>Les API IndexedDB et Fetch</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <style>
         form {
             width: 800px;
@@ -26,6 +26,7 @@
             width: 800px !important;
             margin: 20px auto;
         }
+
         #loadData {
             margin: 10px;
         }
@@ -35,8 +36,7 @@
 <body>
     <p>
         <button id="loadData" class="btn btn-success">Charger les données à partir du fichier JSON</button>
-        <button id="loadData" class="btn btn-primary">Exporter les données vers un fichier JSON</button>
-
+        <button id="saveData" class="btn btn-primary">Exporter les données vers fichier JSON</button>
     </p>
     <form>
         <div>
@@ -74,7 +74,7 @@
         <tbody>
         </tbody>
     </table>
-    <script src="js/bootstrap.min.js"> </script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
     <script src="js/database.js"> </script>
     <script>
         myDB.indexedDB.open('m2i', 'contacts');
@@ -88,6 +88,8 @@
                 })
                 .then((json) => {
                     document.querySelector('tbody').innerHTML = '';
+                    console.log(json);
+                    /*
                     json.data.forEach(function (row) {
                         let item = {
                             'nom': row.nom.toUpperCase(),
@@ -98,13 +100,42 @@
                         myDB.indexedDB.create('contacts', item);
                     });
                     myDB.indexedDB.read('contacts');
-
+                    */
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         });
 
+        var saveData = (function () {
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            return function (data, fileName) {
+                var blob = new Blob([data], { type: "text/plain;charset=utf-8" }),
+                    url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            };
+        }());
+
+        document.querySelector('#saveData').addEventListener('click', function () {
+            st = '{"title": "Liste des contacts", "data": [';
+            document.querySelectorAll('table tbody tr').forEach(function(tr) {
+                let tds = tr.querySelectorAll('td');
+                st += '{"id": '+tds[0].textContent+',';
+                st += '"nom": "'+tds[1].textContent+'",';
+                st += '"prenom": "'+tds[2].textContent+'",';
+                st += '"codepostal": "'+tds[3].textContent+'",';
+                st += '"ville": "'+tds[4].textContent+'"},';
+            });
+            st = st.substr(0, st.length-1); // on enlève la dernière virgule
+            st += "]}";
+            console.log(st);
+            saveData(st, 'test.json');
+        });
         document.querySelector('#add').addEventListener('click', function () {
             let nom = document.querySelector('#nom').value;
             let prenom = document.querySelector('#prenom').value;
@@ -122,8 +153,7 @@
             document.querySelector('#codepostal').value = '';
             document.querySelector('#ville').value = '';
             myDB.indexedDB.create('contacts', data);
-            myDB.indexedDB.create('contacts');
-
+            myDB.indexedDB.read('contacts');
         });
 
         myDB.indexedDB.callback = function (data) {

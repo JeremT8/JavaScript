@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery - AJAX</title>
+</head>
+
+<body>
+
+    <div id="doc">
+
+    </div>
+
+    <footer>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script>
+            /*
+            $.getJSON('js/contacts.json', function(json) {
+                console.log(json);
+            })
+            */
+
+            $.ajax({
+                url: 'js/contacts.json',
+                method: 'GET',
+                dataType: 'json'
+            }).done(function (json) {
+                $('#doc').text(json.title);
+                console.log(json.data);
+            }).fail(function (error) {
+                console.log(error.status + ": " + error.statusText);
+            })
+        </script>
+    </footer>
+</body>
+
+</html>

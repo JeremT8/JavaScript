@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 4.2</title>
+    <style>
+        table {
+            border: 2px solid #333;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        th,
+        td {
+            padding: 2px 5px;
+            border: 1px solid #888;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #EEE;
+        }
+
+        tbody tr:hover td {
+            background-color: rgb(112, 112, 168);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>n</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Ville</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>NYCRAYON</td>
+                <td>Nicole</td>
+                <td>Poitiers</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>PATAMEUL</td>
+                <td>Alphonse</td>
+                <td>Tours</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>HYENNE</td>
+                <td>Cesar</td>
+                <td>Orleans</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>NEYMAR</td>
+                <td>Jean</td>
+                <td>Paris</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>TERRIEUR</td>
+                <td>Alex</td>
+                <td>Lyon</td>
+            </tr>
+        </tbody>
+    </table>
+    <footer>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script>
+            (function() {
+                $('<th>').appendTo('thead tr')
+    
+                $('tbody tr').each(function() {
+                    let td = $('<td>').appendTo(this);
+                    let id = $(this).find('td:eq(0)').text();
+                    let a = $('<a>').appendTo(td).attr({
+                        'href': '#',
+                        'id': id,
+                        'title':'Supprimer le contact N° ' + id
+                    }).click(function(){
+                        $(this).closest('tr').hide('slow', function(){
+                            $(this).remove();
+                        });
+                    });
+                    $('<img src="img/delete.png">').appendTo(a);
+                    });
+                })();
+        </script>
+    </footer>
+</body>
+
+</html>

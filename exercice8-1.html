@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,8 +9,10 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <style>
         body {
-            margin: 15%;
+            margin: 4%;
+            
         }
+
         #calque {
             width: 200px;
             height: 200px;
@@ -18,8 +21,29 @@
             background-color: #EEE;
             margin: 10px;
         }
+
+        #calque.animer {
+            animation: monAnimation 10s 1 linear forwards;
+        }
+
+        @keyframes monAnimation {
+            0% {
+
+            }
+
+            50% {
+                width: 90%;
+                font-size: 36pt;
+            }
+            100% {
+                width: 90%;
+                font-size: 36pt;
+                height: 600px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <button id="animer">Animer</button>
     <button id="reinitialiser">Réinitialiser</button>
@@ -39,37 +63,14 @@
                 -    Le deuxième bouton permet au calque de retrouver son apparence initiale
              * 
              */
-            $('#animer').click(function() {
-                $('#calque').animate(
-                    {
-                        // les propriétés.
-                        width: '90%',
-                        fontSize: '36pt'
-                    },
-                    {
-                        // les informations sur l'animation.
-                        duration: 5000
-                    }
-                ).animate(
-                {
-                    height: '600px'
-                },
-                {
-                    duration: 5000,
-                    queue: false
-                }
-                )
+            $('#animer').click(function () {                    
+                        $('#calque').addClass('animer')
             });
-
-            $('#reinitialiser').click(function() {
-                $('#calque').css({
-                    width: '',
-                    fontSize:'',
-                    height:''
-                }
-                );
-            })
+            $('#reinitialiser').click(function () {                    
+                        $('#calque').removeClass('animer')
+            });
         </script>
     </footer>
 </body>
+
 </html>
