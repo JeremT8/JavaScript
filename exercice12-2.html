@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap5.min.css">
+    <style>
+        #container { 
+            width : 90% !important;
+            margin: 3% auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+    <table id="contacts" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Code Postale</th>
+                <th>Ville</th>
+                <th>Date d'embauche</th>
+            </tr>
+        </thead>
+    </table>
+    </div>
+    <footer>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/datatables.min.js"></script>
+        <script src="js/dataTables.bootstrap5.min.js"></script>
+        <script src="js/date-eu.js"></script>
+
+        <!-- <script src="js/i18n/datatables_fr.json"></script>   -->
+        
+        <script>
+            $('#contacts').DataTable({
+                language: {url: 'js/i18n/datatables_fr.json'},
+                ajax: 'js/contacts2.json',
+                lengthChange: false, // Masque le dropdown pour la taille du tableau (ligne par page de tableau).
+                columns: [
+                    { data: 'identifiant', searchable: false, orderable: false },
+                    { data: 'nom'},
+                    { data: 'prenom'},
+                    { data: 'codepostal'},
+                    { data: 'ville'},
+                    { data: null, 
+                            render: function(data){
+                                let t = data.embauche.split('-');
+                                let dt = t[2] + '/' + t[1] + '/' + t[0];
+                                return dt;
+                            }, type: 'date-eu'                  
+                    }]
+            });
+
+        </script>
+    </footer>
+</body>
+</html>
