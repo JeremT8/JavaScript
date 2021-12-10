@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery et les Formulaires</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/overcast/jquery-ui.min.css">
+
+    <style>
+        form {
+            width: 800px;
+            margin: 25px auto;
+        }
+
+        .eye {
+            border: 1px solid silver;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            font-style: italic;
+        }
+
+        label.error {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <form novalidate>
+            <div class="row mb-3">
+                <label for="nom" class="col-sm-2 col-form-label">Nom</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Votre nom de naissance">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="naissance" class="col-sm-2 col-form-label">Date naissance</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control date" id="naissance" autocomplete="off" name="naissance">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="codepostal" class="col-sm-2 col-form-label">Code postal</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="codepostal" name="codepostal">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="passe" class="col-sm-2 col-form-label">Mot de passe</label>
+                <div class="col-sm-10">
+                    <div class="input-group mb-3">
+                        <img src="img/3994406_eye_on_show_view_visible_icon.png" class="eye" width="35">
+                        <input type="password" class="form-control" id="passe" name="passe">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="confirmpasse" class="col-sm-2 col-form-label">Confirmez le
+                    mot de passe</label>
+                <div class="col-sm-10">
+                    <div class="input-group mb-3">
+                        <img src="img/3994406_eye_on_show_view_visible_icon.png" class="eye" width="35">
+                        <input type="password" class="form-control" id="confirmpasse" name="confirmpasse">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Validez</button>
+            <ul class="error" id="messages"></ul>
+        </form>
+        <footer>
+            <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script src="js/jquery-3.6.0.min.js"></script>
+            <script src="js/jquery.validate.min.js"></script>
+            <script src="js/additional-methods.min.js"></script>
+            <script src="js/i18n/validation_messages_fr.js"></script>
+            <script src="js/jquery-ui.min.js"></script>
+            <script src="js/i18n/jquery.ui.datepicker-fr.js"></script>
+
+            <script>
+                $('.eye').mousedown(function () {
+                    this.src = "img/3994371_eye_hidden_hide_invisible_private_icon.png";
+                    $(this).parent().find('input').attr('type', 'text');
+                });
+                $('.eye').mouseup(function () {
+                    this.src = "img/3994406_eye_on_show_view_visible_icon.png";
+                    $(this).parent().find('input').attr('type', 'password');
+                });
+                $('#messages').dialog({
+                    autoOpen: false,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                })
+                $('input.date').datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    onClose: function () {
+                        $(this).valid();
+                    }
+                })
+                $('input.date').change(function () {
+                    $(this).valid();
+                })
+
+                $.validator.addMethod(
+                    'codepostal',
+                    function (value, element, state) {
+                        if (!state) return true;
+                        regex = /^((2[\dABab]))|\d{2}\d{3}$/;
+                        return this.optional(element) || regex.test(value);
+                    },
+                    "Le code postale est incorrecte"
+                )
+                $.validator.addMethod(
+                    'strongpassword',
+                    function (value, element, state) {
+                        if (!state) return true;
+                        regex = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*].*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z]).{8,}$/
+                        return this.optional(element) || regex.test(value);
+                    },
+                    "Votre mot de passe doit être fort"
+                );
+                $.validator.addMethod(
+                    'confirmpassword',
+                    function (value, element, state) {
+                        password = $(id).get(0)
+                        return this.optional(element) || value === password.value;
+                    },
+                    "Les mots de passe ne sont pas identiques"
+                )
+                $('form').validate({
+                    errorLabelContainer: '#messages',
+                    wrapper: 'li',
+                    rules: {
+                        'nom': {
+                            required: true,
+                            minlength: 2,
+                            maxlength: 25
+                        },
+                        'email': {
+                            required: true,
+                            email: true,
+                            maxlength: 100
+                        },
+                        'naissance': {
+                            required: true,
+                            date: true
+                        },
+                        'codepostal': {
+                            required: true,
+                            codepostal: true
+                        },
+                        'passe': {
+                            required: true,
+                            strongpassword: true,
+                        },
+                        'confirmpasse': {
+                            required: true,
+                            'confirmpassword': '#passe'
+                        }
+                    },
+                    invalidHandler: function (form, validator) {
+                        let errors = validator['invalid'];
+                        let msg = $('#messages').empty();
+                        for (key in errors) {
+                            let name = $('*[name=' + key + ']').get(0).dataset.nom;
+                            $('<li>').appendTo(msg).text(key + ' :  ' + errors[key]);
+                        }
+                        $('#messages').dialog('open');
+                    },
+                    errorPlacement: function (error, element) {
+                        return;
+                    },
+                    submitHandler: function (form) {
+                        $('#messages').empty();
+                    }
+                })
+
+
+            </script>
+
+
+        </footer>
+    </body>
+</body>
+
+</html>

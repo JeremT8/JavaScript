@@ -1,0 +1,32 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Plug-in jQuery</title>
+    </head>
+    <body>
+        
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora corporis nisi modi eos tenetur sunt, nihil ipsam aliquam nam! Exercitationem sint quae debitis, consequatur molestias itaque? Nobis neque exercitationem accusamus!</p>
+        <p>Libero minima dolore asperiores officiis, quis autem ipsam laborum quidem quos voluptatum iure incidunt sint aliquid rem vero odio impedit vel exercitationem pariatur cupiditate sunt! Dolor reprehenderit perferendis adipisci enim.</p>
+        <p>Atque quaerat velit ipsa provident perferendis pariatur, numquam assumenda voluptas rerum iusto cum voluptatem exercitationem. Repellat, culpa quas quisquam porro, praesentium ipsum vero deserunt quos tempore amet quis maiores placeat?</p>
+        <p>A tempore magni minus, consequatur corrupti corporis facere atque asperiores ad vero veniam quaerat dolor incidunt ipsa necessitatibus sunt ea, rerum cupiditate, quod adipisci cum. Totam voluptatem repellendus quas dolore.</p>
+        <p>Distinctio fugiat nobis necessitatibus itaque praesentium ea fugit et ratione, beatae quam earum quod aut dolore cupiditate officia, voluptates ab accusantium omnis nesciunt dolor obcaecati amet! Impedit praesentium molestias quam!</p>
+
+        <footer>
+            <script src="js/jquery-3.6.0.min.js"></script>
+            <script>
+                jQuery.fn.setColor = function(colors) {
+                    let defaut = {bgColor: 'cyan', fdColor: 'green'};
+                    let opts = jQuery.extend(defaut, colors);
+                    $(this).css({
+                        backgroundColor: opts.bgColor,
+                        color: opts.fdColor
+                    });
+                };
+                $('p:eq(0)').setColor({bgColor: 'yellow'});
+            </script>
+        </footer>
+    </body>
+    </html>
