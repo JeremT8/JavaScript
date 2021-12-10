@@ -1,38 +1,27 @@
 {
     "title": "jQuery",
-    "data":
-            {
-                "Rappel": 
-                        {
-                            "Manipulation des images": "atelier01.html",
-                            "Manipulation des tableaux": "atelier01b.html"
-                        },
-                "Premiers pas": "atelier02.html",
-                "Sélecteurs": "atelier03.html",
-                "Evénements": "atelier04.html",
-                "Effets": {
-                    "Animation en jQuery": "atelier05.html",
-                    "Animation en CSS3": "atelier05b.html"
-                },
-                "DOM": {
-                    "Manipulation des images": "atelier06.html",
-                    "Manipulation des tableaux": "atelier06b.html"
-                },
-                "AJAX": "atelier07.html",
-                "Tableaux": {
-                    "Avec thème Bootstrap": "atelier08.html",
-                    "Avec thème jQuery UI": "atelier08b.html",
-                    "Sans DataTable-1": "atelier08c.html",
-                    "Sans DataTable-2": "atelier08d.html"
-                },
-                "Validation": {
-                    "Avec jQuery validate": "atelier09.html",
-                    "Avec HTML5": "atelier09b.html"
-                },
-                "Widgets": "atelier10.html",
-                "Plugins": {
-                    "Plugin setColor": "atelier11.html",
-                    "Plugin DataTable": "atelier11b.html"
-                }
-            }
+    "data": {
+        "Accueil": "index.html",
+        "Javascript": {
+            "DOM 1": "exercice4-1.html",
+            "DOM 2": "exercice4-2.html",
+            "Validation": "exercice5-1.html",
+            "l'API File": "exercice5-2.html",
+            "Drag & Drop": "exercice5-3.html",
+            "IndexedDB": "exercice5-4.html",
+            "Fetch": "exercice6-1.html"
+        },
+        "jQuery": {
+            "Premiers pas": "exercice7-1.html",
+            "Les événements": "exercice8-1.html",
+            "Les animations": "exercice9-1.html",
+            "Le modèle DOM-1": "exercice10-1.html",
+            "Le modèle DOM-2": "exercice10-2.html",
+            "Ajax": "exercice11-1.html",
+            "DataTable - 1": "exercice12-1.html",
+            "DataTable - 2": "exercice12-2.html",
+            "Formulaires": "exercice13-1.html",
+            "Plugin": "exercice14-1.html"
+        }
+    }
 }
