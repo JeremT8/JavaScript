@@ -1,13 +1,10 @@
-/*
-But: création d'un plugin jQuery de génération d'un menu Bootstrap
-à partir d'un fichier JSON
-Créer un script de création d'un plugin jQuery sur le DOM
-la fonction s'appelera menu et aura un JSON en paramètre
-le paramètre JSON a :
-    - une clé url qui contient le nom du menu json à lire
-    - une clé theme qui aura pour valeur dark ou light (light étant la valeur par défaut)
-si la clé theme a une valeur autre que dark ou light, sa valeur est light
-*/
+/**
+ * Création d'un plugin jQuery permettant l'exploitation d'un fichier JSON permettant de faire une barre de navigation bootstrap dynamique.  
+ * 
+ * @param {JSON} options : élément JSON avec deux clés
+ *                                         - url : url du menu JSON
+ *                                         - theme : facultatif (light par defaut) => theme bootstrap du menu (light / dark)
+ */
 
 jQuery.fn.menu = function (options) {
     var defaut = { url: 'js/menu.json', theme: 'light' };
